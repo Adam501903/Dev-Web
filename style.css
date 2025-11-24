@@ -12062,3 +12062,6 @@ textarea.form-control-lg {
 .row {
   display: flex;
 }
+.container{
+  display: flexbox;
+}
