@@ -14,7 +14,7 @@ const gridLayout = [
     [0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0],
     [0,0,0,0,1,1,1,1,1,1,1,1,1,0,1,0,0]
 ];
-
+const answer=["1HDICHOTOMY","2HRECURSIVITY","3HBROWSER","4HSERVER","5HBRAIN","6HPROMISE","7HALLOW","8HOBJECT","9HHIERARCHY","1VCACHE","2VREVERSE","3VREMOTE","4VMOVE","5VBEHAVIOR","6VCYBER","7VWINDOW","8VHTML","9VEXECUTE"];
 const container = document.getElementById("crossword-container");
 
 gridLayout.forEach(rowData => {
