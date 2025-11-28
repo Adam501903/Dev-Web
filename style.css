@@ -12047,9 +12047,10 @@ textarea.form-control-lg {
 
 .crossword-cell {
   width: 35px;
+  color: transparent;
   height: 35px;
   text-align: center;
-  font-size: 18px;
+  font-size: 10px;
   text-transform: uppercase;
   border: 1px solid #333;
   pointer-events: none; /* prevent clicking */
@@ -12064,4 +12065,8 @@ textarea.form-control-lg {
 }
 .container{
   display: flexbox;
+}
+
+.crossword-cell.revealed {
+  color: black;           /* show letters when revealed */
 }
