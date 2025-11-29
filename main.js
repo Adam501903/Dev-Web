@@ -15,23 +15,38 @@ const gridLayout = [
     [0,0,0,0,1,1,1,1,1,1,1,1,1,0,1,0,0]
 ];
 
-const answer = [
-  "1HDICHOTOMY","2HRECURSIVITY","3HBROWSER","4HSERVER","5HBRAIN","6HPROMISE",
-  "7HALLOW","8HOBJECT","9HHIERARCHY","1VCACHE","2VREVERSE","3VREMOTE",
-  "4VMOVE","5VBEHAVIOR","6VCYBER","7VWINDOW","8VHTML","9VEXECUTE"
-];
+const horizontalStart = {
+  1: { r: 0, c: 0 },
+  2: { r: 2, c: 0 },
+  3: { r: 3, c: 10 },
+  4: { r: 4, c: 1 },
+  5: { r: 5, c: 9 },
+  6: { r: 6, c: 3 },
+  7: { r: 8, c: 9 },
+  8: { r: 11, c: 9 },
+  9: { r: 13, c: 4 }
+};
 
-const letter = "DICHOTOMYAOCRECURSIVITYHEEBROWSERSERVEREIXEEBRAINEPROMISEOCSOHOUETALLOWTEVEIAOBJECTUMHIERARCHYL";
+const verticalStart = {
+  1: { r: 0, c: 2 },
+  2: { r: 2, c: 4 },
+  3: { r: 4, c: 6 },
+  4: { r: 0, c: 7 },
+  5: { r: 5, c: 9 },
+  6: { r: 1, c: 10 },
+  7: { r: 3, c: 13 },
+  8: { r: 10, c: 14 },
+  9: { r: 3, c: 15 }
+};
+
+
+const letter = "DICHOTOMYAOCRECURSIVITYHEEBROWSERSERVEREIXEEBRAINEPROMISEOCSOHOUETALLOWTEVEIHOBJECTUMHIERARCHYL";
 
 const container = document.getElementById("crossword-container");
 
-// Store grid cells
 const cells = [];
 let index = 0;
 
-/* -------------------------------------------------
-   BUILD GRID WITH HIDDEN LETTERS
----------------------------------------------------*/
 gridLayout.forEach((rowData, r) => {
 
   const row = document.createElement("div");
@@ -50,9 +65,8 @@ gridLayout.forEach((rowData, r) => {
     input.dataset.col = c;
 
     if (cell === 1) {
-      input.value = letter[index];     // store letter
-      index++;
-      input.style.color = "transparent"; // hide letter initially
+      input.value = letter[index];
+      index++; 
     } else {
       input.disabled = true;
     }
@@ -65,50 +79,37 @@ gridLayout.forEach((rowData, r) => {
   container.appendChild(row);
 });
 
-/* -------------------------------------------------
-   REVEAL FUNCTION (H + V)
----------------------------------------------------*/
 function revealWord(num, hv, word) {
   num = parseInt(num);
+  word = word.toUpperCase();
 
   if (hv === "H") {
-    let r = num - 1;
-    let col = 0;
+    let { r, c } = horizontalStart[num];
 
     for (let i = 0; i < word.length; i++) {
+      if (!cells[r] || !cells[r][c]) break;
 
-      while (cells[r][col]?.disabled) col++;
-
-      if (!cells[r][col]) break;
-
-      if (cells[r][col].value.toUpperCase() === word[i]) {
-        cells[r][col].style.color = "black";   // reveal letter
+      if (!cells[r][c].disabled && cells[r][c].value === word[i]) {
+        cells[r][c].style.color = "black";
       }
-      col++;
+      c++;
     }
   }
 
   if (hv === "V") {
-    let c = num - 1;
-    let row = 0;
+    let { r, c } = verticalStart[num];
 
     for (let i = 0; i < word.length; i++) {
+      if (!cells[r] || !cells[r][c]) break;
 
-      while (cells[row] && cells[row][c]?.disabled) row++;
-
-      if (!cells[row] || !cells[row][c]) break;
-
-      if (cells[row][c].value.toUpperCase() === word[i]) {
-        cells[row][c].style.color = "black";   // reveal letter
+      if (!cells[r][c].disabled && cells[r][c].value === word[i]) {
+        cells[r][c].style.color = "black";
       }
-      row++;
+      r++;
     }
   }
 }
 
-/* -------------------------------------------------
-   BUTTON CLICK: CHECK & REVEAL
----------------------------------------------------*/
 document.getElementById("submitBtn").addEventListener("click", () => {
 
   const num = document.getElementById("numInput").value;
