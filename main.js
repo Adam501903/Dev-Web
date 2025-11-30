@@ -40,7 +40,7 @@ const verticalStart = {
 };
 
 
-const letter = "DICHOTOMYAOCRECURSIVITYHEEBROWSERSERVEREIXEEBRAINEPROMISEOCSOHOUETALLOWTEVEIHOBJECTUMHIERARCHYL";
+const letter = "DICHOTOMYAOCRECURSIVITYHEEBROWSERSERVEREIXEEBRAINEPROMISEDCSOHOUETALLOWTEVEIHOBJECTUMHIERARCHYL";
 
 const container = document.getElementById("crossword-container");
 
@@ -109,6 +109,18 @@ function revealWord(num, hv, word) {
     }
   }
 }
+document.getElementById("textInput").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    const num = document.getElementById("numInput").value;
+  const hv = document.getElementById("hvInput").value.toUpperCase();
+  const word = document.getElementById("textInput").value.toUpperCase();
+
+  if (!num || !word || !"HV".includes(hv)) return;
+
+  revealWord(num, hv, word);
+  
+  }
+});
 
 document.getElementById("submitBtn").addEventListener("click", () => {
 
